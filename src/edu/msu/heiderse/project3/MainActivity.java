@@ -13,6 +13,8 @@ import android.os.Build;
 
 public class MainActivity extends Activity {
 
+	float testVariable = 0.0f;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
