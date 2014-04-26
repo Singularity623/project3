@@ -3,20 +3,17 @@ package edu.msu.heiderse.project3;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.NotificationManager;
-import android.app.Service;
+import android.content.ComponentName;
 import android.content.Intent;
-import android.os.Binder;
+import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Build;
-import android.widget.Toast;
+
 
 public class MainActivity extends Activity {
 	
@@ -24,7 +21,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
+		service= new myService();
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
@@ -69,19 +66,62 @@ public class MainActivity extends Activity {
 	}
 	
 	
-	// foobar
+	 @Override
+	  protected void onResume() {
+	    super.onResume();
+	    
+	    connectToService();
+	  }
 
+	  @Override
+	  protected void onPause() {
+	    super.onPause();
 
+	    if (serviceConnection != null) {
+	      unbindService(serviceConnection);
+	      serviceConnection = null;
+	    }
+	  }
 	
+	// Helper function for connecting to AirWavesService.
+	  private void connectToService() {
+	    // Calling startService() first prevents it from being killed on unbind()
+	    startService(new Intent(this, myService.class));
 
-	private final static double BelmontLattitude = 42.731746;
-	private final static double BelmontLongitude = -84.4826998;
+	    // Now connect to itmyService
+	    serviceConnection = new myServiceConnection();
+
+	    boolean result = bindService(
+	      new Intent(this, myService.class),
+	      serviceConnection,
+	      BIND_AUTO_CREATE
+	    );
+	    if (!result) {
+	        throw new RuntimeException("Unable to bind with service.");
+	      }
+	  }
+	  
+
+	  protected class myServiceConnection implements ServiceConnection {
+	    @Override
+	    public void onServiceConnected(ComponentName className, IBinder binder) {
+	 
+	      service = ((myService.LocalBinder) binder).getService();
+	    }
+
+	    @Override
+	    public void onServiceDisconnected(ComponentName className) {
+	      service = null;
+	    }
+	  }
+	  
+	  protected void callServiceFunction()  {
+		  service.doSomethingOnService();
+		  }
 	
-	private final static double SpartyLattitude = 42.7302552;
-	private final static double SpartyLongitude = -84.4889347;
-	
-	private final static double BreslinLattitude = 42.7271658;
-	private final static double BreslinLongitude = -84.4901256;
+	  private myService service;
+
+	protected myServiceConnection serviceConnection;
 
 
 
