@@ -2,22 +2,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="50dp"
     tools:context="edu.msu.heiderse.project3.MainActivity$PlaceholderFragment" >
     
     <FrameLayout 
         android:id="@+id/centerpoint"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_centerInParent="true"></FrameLayout>
+        android:layout_centerInParent="true"
+        ></FrameLayout>
     <!-- region label fields -->
+
+    <ToggleButton
+        android:id="@+id/toggleService"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toggleService"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"/>
+
     <TextView
         android:id="@+id/provider"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/toggleService"
         android:layout_marginRight="2dp"
-        
         android:layout_toLeftOf="@id/centerpoint"
         android:text="@string/provider"/>
 
@@ -45,7 +53,7 @@
         android:id="@+id/textProvider"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/toggleService"
         android:layout_marginLeft="2dp"
         android:layout_toRightOf="@id/centerpoint"
         android:text="@string/dummy"/>
