@@ -14,6 +14,7 @@ import android.os.Build;
 public class MainActivity extends Activity {
 
 	float testVariable = 0.0f;
+	int tryAgain = 0;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
