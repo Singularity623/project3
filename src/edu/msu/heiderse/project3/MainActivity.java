@@ -67,11 +67,17 @@ public class MainActivity extends Activity {
 		}
 	}
 	
-	
+	//start the service
 	public void StartService(View view)
 	{
 		Intent i = new Intent(context, myService.class);
 		context.startService(i);
+	}
+	
+	//kill the service
+	public void DestroyService(View view)
+	{
+		service.onDestroy();
 	}
 	
 	 @Override

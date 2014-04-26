@@ -41,7 +41,7 @@ public class myService extends Service {
 	public int onStartCommand(Intent intent, int flags, int startId) {
         // TODO Auto-generated method stub
 		Toast.makeText(this, "Service has started", Toast.LENGTH_SHORT).show();
-
+		doSomethingOnService();
         return START_STICKY;
     }
 	
@@ -55,6 +55,7 @@ public class myService extends Service {
 
     }
    
+    //Enter code to check location and create notifications
     public void doSomethingOnService()  {
     
     }
