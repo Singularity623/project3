@@ -4,6 +4,7 @@ package edu.msu.heiderse.project3;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		context=this;
 		service= new myService();
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
@@ -66,6 +68,12 @@ public class MainActivity extends Activity {
 	}
 	
 	
+	public void StartService(View view)
+	{
+		Intent i = new Intent(context, myService.class);
+		context.startService(i);
+	}
+	
 	 @Override
 	  protected void onResume() {
 	    super.onResume();
@@ -83,7 +91,7 @@ public class MainActivity extends Activity {
 	    }
 	  }
 	
-	// Helper function for connecting to AirWavesService.
+	// Helper function for connecting to service
 	  private void connectToService() {
 	    // Calling startService() first prevents it from being killed on unbind()
 	    startService(new Intent(this, myService.class));
@@ -115,14 +123,10 @@ public class MainActivity extends Activity {
 	    }
 	  }
 	  
-	  protected void callServiceFunction()  {
-		  service.doSomethingOnService();
-		  }
-	
 	  private myService service;
 
-	protected myServiceConnection serviceConnection;
-
+	  protected myServiceConnection serviceConnection;
+	  private Context context;
 
 
 }
