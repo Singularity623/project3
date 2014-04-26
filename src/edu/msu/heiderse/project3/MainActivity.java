@@ -1,18 +1,25 @@
 package edu.msu.heiderse.project3;
 
+
 import android.app.Activity;
-import android.app.ActionBar;
 import android.app.Fragment;
+import android.app.NotificationManager;
+import android.app.Service;
+import android.content.Intent;
+import android.os.Binder;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -60,5 +67,22 @@ public class MainActivity extends Activity {
 			return rootView;
 		}
 	}
+	
+	
+	// foobar
+
+
+	
+
+	private final static double BelmontLattitude = 42.731746;
+	private final static double BelmontLongitude = -84.4826998;
+	
+	private final static double SpartyLattitude = 42.7302552;
+	private final static double SpartyLongitude = -84.4889347;
+	
+	private final static double BreslinLattitude = 42.7271658;
+	private final static double BreslinLongitude = -84.4901256;
+
+
 
 }

@@ -4,6 +4,7 @@
     <string name="app_name">Project3</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+<<<<<<< HEAD
     <string name="provider">Provider:</string>
     <string name="latitude">Latitude:</string>
     <string name="longitude">Longitude:</string>
@@ -15,5 +16,9 @@
     <string name="home">home</string>
     <string name="exception">Failed to communicate with geolocation services</string>
     <string name="couldnotfind">Unable to locate address</string>
+=======
+    
+     <string name="local_service_stopped">Stopped</string>
+>>>>>>> ba55e00cc3f2bd205f27a8a740d16e95ff3eb2c2
 
 </resources>
