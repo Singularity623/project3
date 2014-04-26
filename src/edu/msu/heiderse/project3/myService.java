@@ -36,45 +36,41 @@ public class myService extends Service {
 
 	}
 
+	//call this to start the service
+	@Override
+	public int onStartCommand(Intent intent, int flags, int startId) {
+        // TODO Auto-generated method stub
+		Toast.makeText(this, "Service has started", Toast.LENGTH_SHORT).show();
+
+        return START_STICKY;
+    }
 	
+	//call this to kill the service
+    @Override
+    public void onDestroy() {
+        // TODO Auto-generated method stub
+    	mToast = null;
+        super.onDestroy();
+      
 
-		//call this to start the service
-		@Override
-		public int onStartCommand(Intent intent, int flags, int startId) {
-	        // TODO Auto-generated method stub
-			Toast.makeText(this, "Service has started", Toast.LENGTH_SHORT).show();
+    }
+   
+    public void doSomethingOnService()  {
+    
+    }
+    
+    
+    private final LocalBinder mBinder = new LocalBinder();
+    protected Handler handler;
+    protected Toast mToast;
+  
 
-	        return START_STICKY;
-	    }
-		
-		
+	private final static double BelmontLattitude = 42.731746;
+	private final static double BelmontLongitude = -84.4826998;
 	
-		//call this to kill the service
-	    @Override
-	    public void onDestroy() {
-	        // TODO Auto-generated method stub
-	    	mToast = null;
-	        super.onDestroy();
-	      
-
-	    }
-	   
-	    public void doSomethingOnService()  {
-	    
-	    }
-	    
-	    
-	    private final LocalBinder mBinder = new LocalBinder();
-	    protected Handler handler;
-	   protected Toast mToast;
-	   private boolean search=false;
-
-		private final static double BelmontLattitude = 42.731746;
-		private final static double BelmontLongitude = -84.4826998;
-		
-		private final static double SpartyLattitude = 42.7302552;
-		private final static double SpartyLongitude = -84.4889347;
-		
-		private final static double BreslinLattitude = 42.7271658;
-		private final static double BreslinLongitude = -84.4901256;
+	private final static double SpartyLattitude = 42.7302552;
+	private final static double SpartyLongitude = -84.4889347;
+	
+	private final static double BreslinLattitude = 42.7271658;
+	private final static double BreslinLongitude = -84.4901256;
 }
