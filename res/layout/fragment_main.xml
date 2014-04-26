@@ -90,37 +90,6 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <!-- endregion response -->
-
-    <TextView
-        android:id="@+id/newLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/textDistance"
-        android:textStyle="italic"
-        android:layout_marginTop="20dp"
-        android:text="@string/new_location" />
-
-    <EditText
-        android:id="@+id/editLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/newLocation"
-        android:layout_centerHorizontal="true"
-        android:ems="10"
-        android:inputType="textPostalAddress" >
-
-        <requestFocus />
-    </EditText>
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/editLocation"
-        android:layout_below="@id/editLocation"
-        android:onClick="onNew"
-        android:text="@string/new_button" />
     
     
 </RelativeLayout>
