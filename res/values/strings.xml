@@ -17,6 +17,8 @@
     <string name="exception">Failed to communicate with geolocation services</string>
     <string name="couldnotfind">Unable to locate address</string>
      <string name="local_service_stopped">Stopped</string>
+     <string name="create">Create Service</string>
+     <string name="destroy">Destroy Service</string>
 
 
 </resources>

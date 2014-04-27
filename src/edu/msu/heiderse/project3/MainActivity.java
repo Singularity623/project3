@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ToggleButton;
 
 
 public class MainActivity extends Activity {
@@ -73,16 +74,16 @@ public class MainActivity extends Activity {
 	}
 	
 	//start the service
-	public void StartService(View view)
+	public void ServiceChange(View view)
 	{
-		Intent i = new Intent(context, myService.class);
-		context.startService(i);
-	}
-	
-	//kill the service
-	public void DestroyService(View view)
-	{
-		service.onDestroy();
+		boolean on = ((ToggleButton) view).isChecked();
+		if(on)
+		{
+			Intent i = new Intent(context, myService.class);
+			context.startService(i);
+		}
+		else
+			service.onDestroy();
 	}
 	
 	 @Override
