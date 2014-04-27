@@ -39,9 +39,9 @@ public class myService extends Service {
 	public void onCreate() {
 	super.onCreate();
  
-	// Initialise UI elements
-	handler = new Handler();
-	mToast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
+		// Initialise UI elements
+		handler = new Handler();
+		mToast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
 
 
 	}
@@ -50,8 +50,18 @@ public class myService extends Service {
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
         // TODO Auto-generated method stub
-		Toast.makeText(this, "Service has started", Toast.LENGTH_SHORT).show();
-		doSomethingOnService();
+		
+		mToast.setText("Started");
+    	mToast.show();
+    	new Thread(new Runnable()
+    	{
+    	    @Override
+    	    public void run() 
+    	    {
+    	    	doSomethingOnService();
+    	    }
+    	}).start();
+		
         return START_STICKY;
     }
 	
@@ -59,6 +69,7 @@ public class myService extends Service {
     @Override
     public void onDestroy() {
         // TODO Auto-generated method stub
+    	
     	mToast = null;
         super.onDestroy();
       
@@ -68,6 +79,32 @@ public class myService extends Service {
     //Enter code to check location and create notifications
     public void doSomethingOnService()  {
     
+    	for(int i=0; i<100;i++)
+    	{
+    		final String print="toast "+i;
+    		try{
+	    		handler.post(new Runnable()
+	    		{
+	    			@Override
+	    			public void run() {
+	    				try{
+		    				mToast.setText(print);
+		    				mToast.show();
+	    				}
+	    				catch(Exception e)
+	    	    		{
+	    	    		}
+	    			}
+	    		});
+	    		    		
+	    		try {Thread.sleep(5000);	} catch (InterruptedException e) {}
+				
+	    	}
+    		catch(Exception e)
+    		{
+    			i=10000;
+    		}
+    	}
     }
     
     

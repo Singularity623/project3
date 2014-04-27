@@ -25,7 +25,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		context=this;
-		service= new myService();
+		service=new myService();
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
@@ -77,13 +77,17 @@ public class MainActivity extends Activity {
 	public void ServiceChange(View view)
 	{
 		boolean on = ((ToggleButton) view).isChecked();
-		if(on)
+		if(!on)
 		{
+			service=new myService();
 			Intent i = new Intent(context, myService.class);
 			context.startService(i);
 		}
 		else
+		{
+			if(service!=null)
 			service.onDestroy();
+		}
 	}
 	
 	 @Override
@@ -96,7 +100,6 @@ public class MainActivity extends Activity {
 	  @Override
 	  protected void onPause() {
 	    super.onPause();
-
 	    if (serviceConnection != null) {
 	      unbindService(serviceConnection);
 	      serviceConnection = null;
