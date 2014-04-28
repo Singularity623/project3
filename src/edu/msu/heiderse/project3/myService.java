@@ -25,6 +25,8 @@ import android.util.Log;
 
 @SuppressLint("ShowToast")
 public class myService extends Service {
+	private int timer = 3000;
+	
 
 	public class LocalBinder extends Binder 
 	{
@@ -89,28 +91,30 @@ public class myService extends Service {
    
     
     private int testFlag = 0;
+    private int count = 1;
     //Enter code to check location and create notifications
     public void doSomething()  {
 		Intent intent = new Intent(this, MainActivity.class);
 		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 		
+		
+		
 		final NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
 		builder.setSmallIcon(R.drawable.ic_launcher);
 		builder.setContentTitle(this.getString(R.string.app_name));
-		builder.setContentText("Nothing Important!");
+		
 		builder.setAutoCancel(true);
 		builder.setContentIntent(pendingIntent);
 		
-		final NotificationManager mNotificationManager =
-				(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
 		
 		
 
-		  
+		  /*
 		if(testFlag ==0){
 			mNotificationManager.notify(0, builder.build());
 			testFlag=1;
-		}
+		}*/
 		
     	Log.i("service","did Something");
     	
@@ -130,11 +134,20 @@ public class myService extends Service {
 	    	{
 	    		  @Override
 	    		  public void run() 
-	    				
 	    		  {
+	    			  builder.setContentText( String.valueOf(getClosestDistance()));
+	    			  count++;
+	    				NotificationManager mNotificationManager =
+	    						(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+	    			  if(getClosestDistance()<200){
+	    					mNotificationManager.notify(0, builder.build());
+	    			  }
+	    			  timer = (int) getClosestDistance();
+
+  					  mNotificationManager.notify(0, builder.build());
 	    			  doSomething();
 	    		  }
-	    	}, 1000);
+	    	}, 10000);
     	}
     }
     
@@ -251,7 +264,7 @@ public class myService extends Service {
     // get distance from current location to (lat, lon)
     //
     public double getDistanceTo(double lat, double lon) {
-    	float[] results = new float[1];
+    	float[] results = new float[5];
     	Location.distanceBetween(latitude, longitude, lat, lon, results);
     	return results[0];
     }
