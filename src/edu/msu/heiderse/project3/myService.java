@@ -47,8 +47,7 @@ public class myService extends Service {
 		// Initialise UI elements
 		handler = new Handler();
 	
-
-		
+	
 		
 		// Get the location manager
         locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
@@ -70,6 +69,10 @@ public class myService extends Service {
 	public void onStart(Intent intent, int startId) {
 		super.onStart(intent, startId);
 		running=true;
+		
+		registerListeners();
+		
+		
 		doSomething();
 	}
 	
@@ -110,6 +113,17 @@ public class myService extends Service {
 		}
 		
     	Log.i("service","did Something");
+    	
+    	
+    	
+    	Log.i("CURRENT LAT", String.valueOf(latitude));
+    	Log.i("CURRENT LONG", String.valueOf(longitude));
+    	Log.i("TO SPARTY", String.valueOf(toSparty));
+    	Log.i("TO BRESLIN", String.valueOf(toBreslin));
+    	Log.i("TO BEAUMONT", String.valueOf(toBeaumont));
+    	Log.i("CLOSEST DISTANCE", String.valueOf(getClosestDistance()));
+    	
+    	
     	if(running)
     	{
 	    	handler.postDelayed(new Runnable() 
@@ -191,7 +205,6 @@ public class myService extends Service {
     
     public void updateUI() {
     	// update UI....
-    	
     }
     
     private void onLocation(Location location) {
@@ -223,7 +236,7 @@ public class myService extends Service {
         if(bestAvailable != null) {
             locationManager.requestLocationUpdates(bestAvailable, 500, 1, activeListener);
             //TextView viewProvider = (TextView)findViewById(R.id.textProvider);
-            //viewProvider.setText(bestAvailable);
+            //viewProvider.setText(bestAvailable);            
             Location location = locationManager.getLastKnownLocation(bestAvailable);
             onLocation(location);
         }
@@ -240,7 +253,7 @@ public class myService extends Service {
     public double getDistanceTo(double lat, double lon) {
     	float[] results = new float[1];
     	Location.distanceBetween(latitude, longitude, lat, lon, results);
-    	return results[0];    	
+    	return results[0];
     }
     
     // Get the distance of the closest campus location.
