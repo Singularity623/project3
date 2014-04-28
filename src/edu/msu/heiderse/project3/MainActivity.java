@@ -86,7 +86,7 @@ public class MainActivity extends Activity {
 		else
 		{
 			if(service!=null)
-			service.onDestroy();
+				service.stopSelf();
 		}
 	}
 	
@@ -106,6 +106,15 @@ public class MainActivity extends Activity {
 	    }
 	  }
 	
+	  
+	  @Override
+	  protected void onDestroy() {
+		  if(serviceConnection!=null)
+			  unbindService(serviceConnection);
+		  super.onDestroy();
+	   
+	  }
+	  
 	// Helper function for connecting to service
 	  private void connectToService() {
 	    // Calling startService() first prevents it from being killed on unbind()
@@ -138,6 +147,7 @@ public class MainActivity extends Activity {
 	    }
 	  }
 	  
+	 
 	  private myService service;
 
 	  protected myServiceConnection serviceConnection;

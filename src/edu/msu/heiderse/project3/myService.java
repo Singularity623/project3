@@ -16,6 +16,7 @@ import android.os.Binder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.util.Log;
 import android.widget.Toast;
 
 @SuppressLint("ShowToast")
@@ -41,77 +42,54 @@ public class myService extends Service {
  
 		// Initialise UI elements
 		handler = new Handler();
-		mToast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
+	
 
 
 	}
 
+	/*
 	//call this to start the service
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
         // TODO Auto-generated method stub
-		
-		mToast.setText("Started");
-    	mToast.show();
-    	new Thread(new Runnable()
-    	{
-    	    @Override
-    	    public void run() 
-    	    {
-    	    	doSomethingOnService();
-    	    }
-    	}).start();
-		
+    	doSomethingOnService();
         return START_STICKY;
     }
+*/
+	@SuppressWarnings("deprecation")
+	@Override
+	public void onStart(Intent intent, int startId) {
+		super.onStart(intent, startId);
+		doSomething(10);
+	}
 	
 	//call this to kill the service
     @Override
     public void onDestroy() {
-        // TODO Auto-generated method stub
-    	
-    	mToast = null;
+
         super.onDestroy();
       
 
     }
    
     //Enter code to check location and create notifications
-    public void doSomethingOnService()  {
+    public void doSomething(final int i)  {
     
-    	for(int i=0; i<100;i++)
-    	{
-    		final String print="toast "+i;
-    		try{
-	    		handler.post(new Runnable()
-	    		{
-	    			@Override
-	    			public void run() {
-	    				try{
-		    				mToast.setText(print);
-		    				mToast.show();
-	    				}
-	    				catch(Exception e)
-	    	    		{
-	    	    		}
-	    			}
-	    		});
-	    		    		
-	    		try {Thread.sleep(5000);	} catch (InterruptedException e) {}
-				
-	    	}
-    		catch(Exception e)
-    		{
-    			i=10000;
-    		}
-    	}
+    	Log.i("service","did Something");
+    	if(i>0)
+	    	handler.postDelayed(new Runnable() {
+	    		  @Override
+	    		  public void run() {
+	    			  doSomething(i-1);
+	    		  }
+	    	}, 1000);
+    	
     }
     
     
     
     private final LocalBinder mBinder = new LocalBinder();
     protected Handler handler;
-    protected Toast mToast;
   
 
 	private final static double BeaumontLatitude = 42.731746;
