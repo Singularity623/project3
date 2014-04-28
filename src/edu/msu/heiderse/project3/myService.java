@@ -6,7 +6,10 @@ import java.util.Collections;
 import java.util.List;
 
 import android.annotation.SuppressLint;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
@@ -17,6 +20,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
+import android.support.v4.app.NotificationCompat;
 import android.widget.Toast;
 
 @SuppressLint("ShowToast")
@@ -72,8 +76,23 @@ public class myService extends Service {
 
     }
    
+    
+    private int testFlag = 0;
     //Enter code to check location and create notifications
     public void doSomething(final int i)  {
+		Intent intent = new Intent(this, MainActivity.class);
+		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+		
+		final NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+		builder.setSmallIcon(R.drawable.ic_launcher);
+		builder.setContentTitle(this.getString(R.string.app_name));
+		builder.setContentText("Nothing Important!");
+		builder.setAutoCancel(true);
+		builder.setContentIntent(pendingIntent);
+		
+		final NotificationManager mNotificationManager =
+				(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+		
     
     	Log.i("service","did Something");
     	if(i>0)
@@ -81,6 +100,10 @@ public class myService extends Service {
 	    		  @Override
 	    		  public void run() {
 	    			  doSomething(i-1);
+	    	    		}*/
+	    				if(testFlag ==0){
+	    					mNotificationManager.notify(0, builder.build());
+	    					testFlag=1;
 	    		  }
 	    	}, 1000);
     	
