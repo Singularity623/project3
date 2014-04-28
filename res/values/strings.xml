@@ -19,6 +19,8 @@
      <string name="local_service_stopped">Stopped</string>
      <string name="create">Create Service</string>
      <string name="destroy">Destroy Service</string>
+     <string name="TurnON">Turn On</string>
+     <string name="TurnOff">Turn Off</string>
 
 
 </resources>

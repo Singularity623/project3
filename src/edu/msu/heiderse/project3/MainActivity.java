@@ -121,7 +121,7 @@ public class MainActivity extends Activity {
 	// Helper function for connecting to service
 	  private void connectToService() {
 	    // Calling startService() first prevents it from being killed on unbind()
-	    startService(new Intent(this, myService.class));
+	    //startService(new Intent(this, myService.class));
 
 	    // Now connect to itmyService
 	    serviceConnection = new myServiceConnection();
