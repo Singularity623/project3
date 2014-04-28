@@ -3,7 +3,9 @@ package edu.msu.heiderse.project3;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import android.annotation.SuppressLint;
 import android.app.NotificationManager;
@@ -269,15 +271,30 @@ public class myService extends Service {
     	return results[0];
     }
     
-    // Get the distance of the closest campus location.
+    // Get the <name_of_location : distance> of the closest campus location.
     // Also sets the three distance variables.
     //
-    public double getClosestDistance() {
+    public HashMap<String, Double> getClosestDistance() {
     	List<Double> list = Arrays.asList(	toSparty = getDistanceTo(SpartyLatitude, SpartyLongitude), 
     										toBeaumont = getDistanceTo(BeaumontLatitude, BeaumontLongitude), 
     										toBreslin = getDistanceTo(BreslinLatitude, BreslinLongitude));
-    	  	
-    	return Collections.min(list);
+    	
+    	
+    	final double dClosest = Collections.min(list);
+    	final String loc; 
+    	if (dClosest == toSparty) {
+    		loc = "Sparty";
+    	} else if (dClosest == toBeaumont) {
+    		loc = "Beaumont";
+    	} else {
+    		loc = "Breslin";
+    	}
+    	
+    	HashMap<String, Double> h = new HashMap<String, Double>(){{
+            put(loc, dClosest);
+        }};
+    	    	
+    	return h;
     }
     
 	
