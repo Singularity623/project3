@@ -86,7 +86,10 @@ public class MainActivity extends Activity {
 		else
 		{
 			if(service!=null)
+			{
+				service.StopEverything();
 				service.stopSelf();
+			}
 		}
 	}
 	

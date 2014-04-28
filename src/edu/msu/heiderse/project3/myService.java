@@ -21,7 +21,6 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 import android.support.v4.app.NotificationCompat;
-import android.widget.Toast;
 
 @SuppressLint("ShowToast")
 public class myService extends Service {
@@ -64,7 +63,8 @@ public class myService extends Service {
 	@Override
 	public void onStart(Intent intent, int startId) {
 		super.onStart(intent, startId);
-		doSomething(10);
+		running=true;
+		doSomething();
 	}
 	
 	//call this to kill the service
@@ -79,7 +79,7 @@ public class myService extends Service {
     
     private int testFlag = 0;
     //Enter code to check location and create notifications
-    public void doSomething(final int i)  {
+    public void doSomething()  {
 		Intent intent = new Intent(this, MainActivity.class);
 		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 		
@@ -99,25 +99,28 @@ public class myService extends Service {
 		}
 		
     	Log.i("service","did Something");
-    	if(i>0)
+    	if(running)
     	{
 	    	handler.postDelayed(new Runnable() 
 	    	{
 	    		  @Override
 	    		  public void run() 
 	    		  {
-	    			  doSomething(i-1);
+	    			  doSomething();
 	    	    }
 	    	}, 1000);
     	}
     }
     
-    
+    public void StopEverything()
+    {
+    	running=false;
+    }
     
     private final LocalBinder mBinder = new LocalBinder();
     protected Handler handler;
   
-
+    private static boolean running=false;
 	private final static double BeaumontLatitude = 42.731746;
 	private final static double BeaumontLongitude = -84.4826998;
 	
