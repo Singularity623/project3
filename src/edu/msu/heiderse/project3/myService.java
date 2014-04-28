@@ -92,21 +92,24 @@ public class myService extends Service {
 		
 		final NotificationManager mNotificationManager =
 				(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+		  
+		if(testFlag ==0){
+			mNotificationManager.notify(0, builder.build());
+			testFlag=1;
+		}
 		
-    
     	Log.i("service","did Something");
     	if(i>0)
-	    	handler.postDelayed(new Runnable() {
+    	{
+	    	handler.postDelayed(new Runnable() 
+	    	{
 	    		  @Override
-	    		  public void run() {
+	    		  public void run() 
+	    		  {
 	    			  doSomething(i-1);
-	    	    		}*/
-	    				if(testFlag ==0){
-	    					mNotificationManager.notify(0, builder.build());
-	    					testFlag=1;
-	    		  }
+	    	    }
 	    	}, 1000);
-    	
+    	}
     }
     
     
