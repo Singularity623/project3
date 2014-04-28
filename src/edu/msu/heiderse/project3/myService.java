@@ -144,12 +144,12 @@ public class myService extends Service {
 	    			  if(getClosestDistance()<200){
 	    					mNotificationManager.notify(0, builder.build());
 	    			  }
-	    			  timer = (int) getClosestDistance();
+	    			  timer = (int) getClosestDistance()*100;
 
   					  mNotificationManager.notify(0, builder.build());
 	    			  doSomething();
 	    		  }
-	    	}, 10000);
+	    	}, timer);
     	}
     }
     
