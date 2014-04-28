@@ -21,7 +21,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-import android.support.v4.app.NotificationCompat;
+
 
 @SuppressLint("ShowToast")
 public class myService extends Service {
@@ -102,15 +102,7 @@ public class myService extends Service {
 				(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		
 		
-		final NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-		builder.setSmallIcon(R.drawable.ic_launcher);
-		builder.setContentTitle(this.getString(R.string.app_name));
-		builder.setContentText("Nothing Important!");
-		builder.setAutoCancel(true);
-		builder.setContentIntent(pendingIntent);
-		
-		final NotificationManager mNotificationManager =
-				(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
 		  
 		if(testFlag ==0){
 			mNotificationManager.notify(0, builder.build());
@@ -124,13 +116,10 @@ public class myService extends Service {
 	    	{
 	    		  @Override
 	    		  public void run() 
-	    				/*
+	    				
 	    		  {
 	    			  doSomething();
-	    				if(testFlag ==0){
-	    					mNotificationManager.notify(0, builder.build());
-	    					testFlag=1;
-	    	    }
+	    		  }
 	    	}, 1000);
     	}
     }
