@@ -47,6 +47,10 @@ public class myService extends Service {
 		handler = new Handler();
 		mToast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
 
+		
+		
+		// Get the location manager
+        locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
 
 	}
 
@@ -62,6 +66,7 @@ public class myService extends Service {
     	    @Override
     	    public void run() 
     	    {
+    	    	registerListeners();
     	    	doSomethingOnService();
     	    }
     	}).start();
@@ -72,7 +77,8 @@ public class myService extends Service {
 	//call this to kill the service
     @Override
     public void onDestroy() {
-        // TODO Auto-generated method stub
+    	
+    	unregisterListeners();
     	
     	mToast = null;
         super.onDestroy();
@@ -256,7 +262,7 @@ public class myService extends Service {
     										toBeaumont = getDistanceTo(BeaumontLatitude, BeaumontLongitude), 
     										toBreslin = getDistanceTo(BreslinLatitude, BreslinLongitude));
     	  	
-    	return Collections.min(list); 
+    	return Collections.min(list);
     }
     
 	
