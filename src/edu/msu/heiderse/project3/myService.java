@@ -266,6 +266,24 @@ public class myService extends Service {
     // get distance from current location to (lat, lon)
     //
     public double getDistanceTo(double lat, double lon) {
+        Criteria criteria = new Criteria();
+        criteria.setAccuracy(Criteria.ACCURACY_FINE);
+        criteria.setPowerRequirement(Criteria.POWER_HIGH);
+        criteria.setAltitudeRequired(true);
+        criteria.setBearingRequired(false);
+        criteria.setSpeedRequired(false);
+        criteria.setCostAllowed(false);
+        
+        String bestAvailable = locationManager.getBestProvider(criteria, true);
+        
+        if(bestAvailable != null) {
+            locationManager.requestLocationUpdates(bestAvailable, 500, 1, activeListener);
+            //TextView viewProvider = (TextView)findViewById(R.id.textProvider);
+            //viewProvider.setText(bestAvailable);            
+            Location location = locationManager.getLastKnownLocation(bestAvailable);
+            onLocation(location);
+        }
+        
     	float[] results = new float[5];
     	Location.distanceBetween(latitude, longitude, lat, lon, results);
     	return results[0];
