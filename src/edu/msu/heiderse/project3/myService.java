@@ -19,6 +19,7 @@ import android.os.Binder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.support.v4.app.NotificationCompat;
 
@@ -47,6 +48,10 @@ public class myService extends Service {
 		handler = new Handler();
 	
 
+		
+		
+		// Get the location manager
+        locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
 
 	}
 
@@ -55,6 +60,7 @@ public class myService extends Service {
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
         // TODO Auto-generated method stub
+    	    	registerListeners();
     	doSomethingOnService();
         return START_STICKY;
     }
@@ -70,6 +76,8 @@ public class myService extends Service {
 	//call this to kill the service
     @Override
     public void onDestroy() {
+    	
+    	unregisterListeners();
 
         super.onDestroy();
       
@@ -82,6 +90,17 @@ public class myService extends Service {
     public void doSomething()  {
 		Intent intent = new Intent(this, MainActivity.class);
 		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+		
+		final NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+		builder.setSmallIcon(R.drawable.ic_launcher);
+		builder.setContentTitle(this.getString(R.string.app_name));
+		builder.setContentText("Nothing Important!");
+		builder.setAutoCancel(true);
+		builder.setContentIntent(pendingIntent);
+		
+		final NotificationManager mNotificationManager =
+				(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+		
 		
 		final NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
 		builder.setSmallIcon(R.drawable.ic_launcher);
@@ -105,8 +124,12 @@ public class myService extends Service {
 	    	{
 	    		  @Override
 	    		  public void run() 
+	    				/*
 	    		  {
 	    			  doSomething();
+	    				if(testFlag ==0){
+	    					mNotificationManager.notify(0, builder.build());
+	    					testFlag=1;
 	    	    }
 	    	}, 1000);
     	}
@@ -239,7 +262,7 @@ public class myService extends Service {
     										toBeaumont = getDistanceTo(BeaumontLatitude, BeaumontLongitude), 
     										toBreslin = getDistanceTo(BreslinLatitude, BreslinLongitude));
     	  	
-    	return Collections.min(list); 
+    	return Collections.min(list);
     }
     
 	
