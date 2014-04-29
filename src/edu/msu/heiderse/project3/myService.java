@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.annotation.SuppressLint;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -92,9 +93,11 @@ public class myService extends Service {
    
     
     private int testFlag = 0;
-	private String closestPlace;
-	private double closestDistance;
-	private final String closest = "CLOSEST";
+	public String closestPlace ="";
+	public double closestDistance = 0;
+	private final static String CLOSEST = "CLOSEST";
+	private final static String BESTPROVIDER = "BESTPROVIDER";
+	private final static String DISTANCE = "DISTANCE";
     //Enter code to check location and create notifications
     public void doSomething()  {
     	// load closest Target: name and distance
@@ -108,8 +111,19 @@ public class myService extends Service {
 		}
 		
 		
-		Intent intent = new Intent(this, MainActivity.class);
-		intent.putExtra(closest, closestPlace);
+		Intent intent= new Intent();
+		
+		
+		if(closestPlace.equals("Sparty")){
+			intent = new Intent(this, SpartyActivity.class);
+		}else if(closestPlace.equals("Beaumont")){
+			intent = new Intent(this, BeaumontActivity.class);
+		}else if(closestPlace.equals("Breslin")){
+			intent = new Intent(this, BreslinActivity.class);
+		}
+		intent.putExtra(CLOSEST, closestPlace);
+		intent.putExtra(BESTPROVIDER,	bestAvailable);
+		intent.putExtra(DISTANCE, closestDistance);
 		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 		
 
@@ -121,9 +135,12 @@ public class myService extends Service {
 		builder.setAutoCancel(true);
 		builder.setContentIntent(pendingIntent);
 		
-		builder.setContentText( String.valueOf(closestDistance));
+		builder.setContentText(closestPlace +"   "+ String.valueOf(closestDistance));
+		
+		
 		NotificationManager mNotificationManager =
 					(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+		
 		
 		if(closestDistance>100 && testFlag ==1){
 			testFlag =0;
@@ -205,6 +222,8 @@ public class myService extends Service {
 	private double toBreslin;
 	
 	private boolean valid = false;
+	public String bestAvailable="GPS";
+	
 	public boolean getValid() {
 		return valid;
 	}
@@ -269,7 +288,7 @@ public class myService extends Service {
         criteria.setSpeedRequired(false);
         criteria.setCostAllowed(false);
         
-        String bestAvailable = locationManager.getBestProvider(criteria, true);
+        bestAvailable = locationManager.getBestProvider(criteria, true);
         
         if(bestAvailable != null) {
             locationManager.requestLocationUpdates(bestAvailable, 500, 1, activeListener);

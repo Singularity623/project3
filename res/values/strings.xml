@@ -16,11 +16,16 @@
     <string name="home">home</string>
     <string name="exception">Failed to communicate with geolocation services</string>
     <string name="couldnotfind">Unable to locate address</string>
-     <string name="local_service_stopped">Stopped</string>
-     <string name="create">Create Service</string>
-     <string name="destroy">Destroy Service</string>
-     <string name="TurnON">Turn On</string>
-     <string name="TurnOff">Turn Off</string>
-
+    <string name="local_service_stopped">Stopped</string>
+    <string name="create">Create Service</string>
+    <string name="destroy">Destroy Service</string>
+    <string name="TurnON">Turn On</string>
+    <string name="TurnOff">Turn Off</string>
+    <string name="title_activity_breslin">BreslinActivity</string>
+    <string name="breslin">Breslin Center</string>
+    <string name="title_activity_sparty">SpartyActivity</string>
+    <string name="spartyStatue">Sparty Statue</string>
+    <string name="title_activity_beaumont">BeaumontActivity</string>
+    <string name="beaumont">Beaumont Tower</string>
 
 </resources>

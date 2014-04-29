@@ -22,6 +22,13 @@ import android.widget.ToggleButton;
 
 
 public class MainActivity extends Activity {
+	private final static String CLOSEST = "CLOSEST";
+	private final static String BESTPROVIDER = "BESTPROVIDER";
+	private final static String DISTANCE = "DISTANCE";
+	
+	private String closestPlace = "";
+	private String bestAvailable = "";
+	private double closestDistance = 0;
 	
 	private TextView provider;
 	private TextView providerResponse;
@@ -39,6 +46,8 @@ public class MainActivity extends Activity {
 		context=this;
 		isUISet = false;
 		service=new myService();
+		
+
 		if (savedInstanceState == null) {
 			FragmentTransaction ft = getFragmentManager().beginTransaction();
 					ft.add(R.id.container, new  FragMain(), "top").commit();
@@ -48,9 +57,12 @@ public class MainActivity extends Activity {
 
 		}
 		
+
 		
 		// Force the screen to say on and bright
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        
+        
 	}
 
 	@Override
@@ -93,7 +105,7 @@ public class MainActivity extends Activity {
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */
-	public static class FragInfo extends Fragment {
+/*	public static class FragInfo extends Fragment {
 
 		public FragInfo() {
 		}
@@ -110,7 +122,7 @@ public class MainActivity extends Activity {
 	    	this.setVisible(vis);
 	    }
 		
-	}
+	}*/
 	
 	
 	//start the service
@@ -145,7 +157,9 @@ public class MainActivity extends Activity {
 		if(val == View.VISIBLE) { //service is on 
 			provider.setVisibility(View.VISIBLE);
 			providerResponse.setVisibility(View.VISIBLE);
+			providerResponse.setText(service.bestAvailable);
 			textTo.setVisibility(View.VISIBLE);
+			textTo.setText(String.valueOf(service.closestPlace));
 			image.setVisibility(View.VISIBLE);
 		}
 		else { //service is off
