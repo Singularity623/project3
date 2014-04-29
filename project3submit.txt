@@ -1,0 +1,40 @@
+
+Project 3 Submission
+
+Group Name:   Team Munn
+
+When you have completed the project, complete the following form and include it with your project. Include this file as a text file in the folder with your project when you turn it in. 
+
+Project Name:  MSU Proximity App (Project 3)
+
+Project Description:  Application that tells the user which MSU landmark they are closest to and displays a picture of that landmark.
+
+
+Member 1: Kang One Suh
+
+Responsiblity: GPS Functionality
+
+
+
+Member 2: Sean Heider
+
+Responsiblity: Layout Set Up and Configuration
+
+
+
+Member 3: Qijun Chen
+
+Responsiblity: Notifications
+
+
+
+Member 4: Chris Cheaney
+
+Responsiblity: Service creation and handling
+
+
+
+Member 5: Anthony Kazyaka
+
+Responsiblity: 
+
