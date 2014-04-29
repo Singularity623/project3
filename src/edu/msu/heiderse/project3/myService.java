@@ -185,6 +185,9 @@ public class myService extends Service {
 	private double toBreslin;
 	
 	private boolean valid = false;
+	public boolean getValid() {
+		return valid;
+	}
 	
 	
 	private class ActiveListener implements LocationListener {
@@ -292,6 +295,7 @@ public class myService extends Service {
     // Get the <name_of_location : distance> of the closest campus location.
     // Also sets the three distance variables.
     //
+    
     public HashMap<String, Double> getClosestDistance() {
     	List<Double> list = Arrays.asList(	toSparty = getDistanceTo(SpartyLatitude, SpartyLongitude), 
     										toBeaumont = getDistanceTo(BeaumontLatitude, BeaumontLongitude), 
@@ -308,12 +312,16 @@ public class myService extends Service {
     		loc = "Breslin";
     	}
     	
-    	HashMap<String, Double> h = new HashMap<String, Double>(){{
+    	HashMap<String, Double> h = new HashMap<String, Double>(){/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+		{
             put(loc, dClosest);
         }};
     	    	
     	return h;
     }
-    
-	
+    	
 }
