@@ -3,6 +3,7 @@ package edu.msu.heiderse.project3;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -15,20 +16,36 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.ToggleButton;
 
 
 public class MainActivity extends Activity {
+	
+	private TextView provider;
+	private TextView providerResponse;
+	private TextView textTo;
+	private ImageView image;
+	
+	boolean isUISet;
+	
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		context=this;
+		isUISet = false;
 		service=new myService();
 		if (savedInstanceState == null) {
-			getFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
+			FragmentTransaction ft = getFragmentManager().beginTransaction();
+					ft.add(R.id.container, new  FragMain(), "top").commit();
+		}
+		else
+		{
+
 		}
 		
 		
@@ -59,9 +76,9 @@ public class MainActivity extends Activity {
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */
-	public static class PlaceholderFragment extends Fragment {
+	public static class FragMain extends Fragment {
 
-		public PlaceholderFragment() {
+		public FragMain() {
 		}
 
 		@Override
@@ -69,19 +86,47 @@ public class MainActivity extends Activity {
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.fragment_main, container,
 					false);
+			
 			return rootView;
 		}
 	}
+	/**
+	 * A placeholder fragment containing a simple view.
+	 */
+	public static class FragInfo extends Fragment {
+
+		public FragInfo() {
+		}
+
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+				View rootView = inflater.inflate(R.layout.fragment_information, container,
+						false);
+				return rootView;
+		}
+		
+	    public void setVisible(int vis){
+	    	this.setVisible(vis);
+	    }
+		
+	}
+	
 	
 	//start the service
 	public void ServiceChange(View view)
 	{
+		if(!isUISet)
+			setUI();
 		boolean on = ((ToggleButton) view).isChecked();
 		if(!on)
 		{
 			service=new myService();
 			Intent i = new Intent(context, myService.class);
 			context.startService(i);
+			
+			//toggle view fragment on
+			updateUI(View.VISIBLE);
 		}
 		else
 		{
@@ -90,8 +135,36 @@ public class MainActivity extends Activity {
 				service.StopEverything();
 				service.stopSelf();
 			}
+			//toggle view fragment off
+			updateUI(View.INVISIBLE);
 		}
+		
 	}
+	
+	public void updateUI(int val){
+		if(val == View.VISIBLE) { //service is on 
+			provider.setVisibility(View.VISIBLE);
+			providerResponse.setVisibility(View.VISIBLE);
+			textTo.setVisibility(View.VISIBLE);
+			image.setVisibility(View.VISIBLE);
+		}
+		else { //service is off
+			provider.setVisibility(View.INVISIBLE);
+			providerResponse.setVisibility(View.INVISIBLE);
+			textTo.setVisibility(View.INVISIBLE);
+			image.setVisibility(View.INVISIBLE);
+		}
+		
+	}
+	
+	public void setUI() {
+		provider = (TextView)findViewById(R.id.provider);
+		providerResponse = (TextView)findViewById(R.id.textProvider);
+		textTo = (TextView)findViewById(R.id.textDistance);
+		image = (ImageView)findViewById(R.id.image);
+		isUISet = true;
+	}
+	
 	
 	 @Override
 	  protected void onResume() {
@@ -126,6 +199,8 @@ public class MainActivity extends Activity {
 	    // Now connect to itmyService
 	    serviceConnection = new myServiceConnection();
 
+	    setUI();
+	    
 	    boolean result = bindService(
 	      new Intent(this, myService.class),
 	      serviceConnection,
@@ -149,7 +224,6 @@ public class MainActivity extends Activity {
 	      service = null;
 	    }
 	  }
-	  
 	 
 	  private myService service;
 

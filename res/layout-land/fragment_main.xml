@@ -1,0 +1,112 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="edu.msu.heiderse.project3.MainActivity$PlaceholderFragment" >
+    
+    <FrameLayout 
+        android:id="@+id/centerpoint"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_centerInParent="true"
+        ></FrameLayout>
+    <!-- region label fields -->
+
+    <ToggleButton
+        android:id="@+id/toggleService"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_below="@id/toggleService"
+        android:layout_centerHorizontal="true"
+        android:onClick="ServiceChange" />
+
+    <TextView
+        android:id="@+id/provider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toggleService"
+        android:layout_marginRight="2dp"
+        android:layout_toLeftOf="@id/centerpoint"
+        android:text="@string/provider"/>
+
+    <TextView
+        android:id="@+id/latitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/provider"
+        android:layout_marginRight="2dp"
+        android:layout_toLeftOf="@id/centerpoint"
+        android:text="@string/latitude" />
+
+    <TextView
+        android:id="@+id/longitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/latitude"
+        android:layout_marginRight="2dp"
+        android:layout_toLeftOf="@id/centerpoint"
+        android:text="@string/longitude"/>
+
+    <!-- endregion label fields -->
+    <!-- region fields -->
+    <TextView
+        android:id="@+id/textProvider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toggleService"
+        android:layout_marginLeft="2dp"
+        android:layout_toRightOf="@id/centerpoint"
+        android:text="@string/dummy"/>
+
+    <TextView
+        android:id="@+id/textLatitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textProvider"
+        android:layout_marginLeft="2dp"
+        android:layout_toRightOf="@id/centerpoint"
+        android:text="@string/dummy" />
+
+    <TextView
+        android:id="@+id/textLongitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textLatitude"
+        android:layout_marginLeft="2dp"
+        android:layout_toRightOf="@id/centerpoint"
+        android:text="@string/dummy"/>
+
+    <!-- endregion fields -->
+    
+    
+    <!--  region response -->
+    <TextView
+        android:id="@+id/textTo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textLongitude"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="@string/dummy"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/textDistance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textTo"
+        android:layout_centerHorizontal="true"
+        android:text="@string/dummy"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <!-- endregion response -->
+    <ImageView
+        android:id="@+id/image" 
+        android:layout_below="@id/textDistance"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/hello_world"
+        />
+    
+</RelativeLayout>
