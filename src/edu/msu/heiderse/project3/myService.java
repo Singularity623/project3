@@ -93,16 +93,13 @@ public class myService extends Service {
    
     
     private int testFlag = 0;
-    private int count = 1;
 	private String closestPlace;
 	private double closestDistance;
+	private final String closest = "CLOSEST";
     //Enter code to check location and create notifications
     public void doSomething()  {
-		Intent intent = new Intent(this, MainActivity.class);
-		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
-		
+    	// load closest Target: name and distance
 		HashMap<String, Double> closestTarget = getClosestDistance();
-
 		for(String s:closestTarget.keySet()){
 			closestPlace = s;
 		}
@@ -110,6 +107,13 @@ public class myService extends Service {
 		for(Double d:closestTarget.values()){
 			closestDistance = d;
 		}
+		
+		
+		Intent intent = new Intent(this, MainActivity.class);
+		intent.putExtra(closest, closestPlace);
+		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+		
+
 		
 		final NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
 		builder.setSmallIcon(R.drawable.ic_launcher);
@@ -119,12 +123,19 @@ public class myService extends Service {
 		builder.setContentIntent(pendingIntent);
 		
 		builder.setContentText( String.valueOf(closestDistance));
-		count++;
 		NotificationManager mNotificationManager =
 					(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-		if(closestDistance<100){
+		
+		if(closestDistance>100 && testFlag ==1){
+			testFlag =0;
+		}
+		
+		if(closestDistance<100 &&testFlag ==0){
 				mNotificationManager.notify(0, builder.build());
+				testFlag = 1;
 		  }
+		
+
 		timer = (int) closestDistance*30;
 
 		//mNotificationManager.notify(0, builder.build());
