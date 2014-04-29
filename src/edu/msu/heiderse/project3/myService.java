@@ -94,12 +94,22 @@ public class myService extends Service {
     
     private int testFlag = 0;
     private int count = 1;
+	private String closestPlace;
+	private double closestDistance;
     //Enter code to check location and create notifications
     public void doSomething()  {
 		Intent intent = new Intent(this, MainActivity.class);
 		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 		
+		HashMap<String, Double> closestTarget = getClosestDistance();
+
+		for(String s:closestTarget.keySet()){
+			closestPlace = s;
+		}
 		
+		for(Double d:closestTarget.values()){
+			closestDistance = d;
+		}
 		
 		final NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
 		builder.setSmallIcon(R.drawable.ic_launcher);
@@ -108,7 +118,17 @@ public class myService extends Service {
 		builder.setAutoCancel(true);
 		builder.setContentIntent(pendingIntent);
 		
+		builder.setContentText( String.valueOf(closestDistance));
+		count++;
+		NotificationManager mNotificationManager =
+					(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+		if(closestDistance<100){
+				mNotificationManager.notify(0, builder.build());
+		  }
+		timer = (int) closestDistance*30;
 
+		//mNotificationManager.notify(0, builder.build());
+		
 		
 		
 
@@ -137,16 +157,6 @@ public class myService extends Service {
 	    		  @Override
 	    		  public void run() 
 	    		  {
-	    			  builder.setContentText( String.valueOf(getClosestDistance()));
-	    			  count++;
-	    				NotificationManager mNotificationManager =
-	    						(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-	    			  if(getClosestDistance()<200){
-	    					mNotificationManager.notify(0, builder.build());
-	    			  }
-	    			  timer = (int) getClosestDistance()*100;
-
-  					  mNotificationManager.notify(0, builder.build());
 	    			  doSomething();
 	    		  }
 	    	}, timer);
